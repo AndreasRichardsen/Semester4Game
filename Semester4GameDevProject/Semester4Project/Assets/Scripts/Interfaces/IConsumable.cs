@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Interfaces
 {
-    class IConsumable
+    public interface IConsumable
     {
+        void Consume();
+        void Consume(CharacterStats stat);
     }
 }

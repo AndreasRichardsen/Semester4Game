@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.Interfaces
 {
-    class IDamagable
+    public interface IDamagable
     {
     }
 }

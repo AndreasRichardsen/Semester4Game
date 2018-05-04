@@ -9,15 +9,14 @@ public class ThirdPersonCamera : MonoBehaviour {
 
     Camera cam;
 
-    float smoothing = 5f;
-    float distance = 10f;
+    float distance = 5f;
     float currentX = 0f;
     float currentY = 50f;
-    float sensitivityX = 10f;
-    float sensitivityY = 5f;
 
     void Start()
     {
+        Debug.Log(lookAt);
+        if (lookAt == null) lookAt = GameObject.Find("Player").transform;
         camTransform = transform;
         cam = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;

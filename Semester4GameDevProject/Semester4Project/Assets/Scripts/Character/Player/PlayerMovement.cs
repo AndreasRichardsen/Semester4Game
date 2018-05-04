@@ -8,10 +8,11 @@ public class PlayerMovement: MonoBehaviour {
     public float speed = 5f;
     public float jumpHeight = 2f;
     public float jumpPower = 12f;
-    public float groundCheckDistance = 0.1f;
+    public float groundCheckDistance = 1f;
     public float dashDistance = 5f;
     public LayerMask ground;
 
+    Animator anim;
     Transform cam;                 
     Vector3 camForward;             
     Rigidbody rigidbody;            
@@ -22,15 +23,18 @@ public class PlayerMovement: MonoBehaviour {
     [Range(1f, 4f)] float gravityMultiplier = 2f;
     const float half = 0.5f;
     float turnAmount;
+    bool walking;
     float capsuleHeight;
     Vector3 capsuleCenter;
     CapsuleCollider capsule;
     bool crouching;
     bool dashing;
+    Vector3 direction = Vector3.down;
 
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         capsule = GetComponent<CapsuleCollider>();
         capsuleHeight = capsule.height;
@@ -41,18 +45,31 @@ public class PlayerMovement: MonoBehaviour {
     void Update()
     {
         /*
-        if(Input.GetButtonDown("Jump") && isGrounded)
-        {
-            //rigidbody.AddForce(Vector3.up * Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
-            //rigidbody.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-        }
-
         if (Input.GetButtonDown("Dash"))
         {
             Vector3 dashVelocity = Vector3.Scale(transform.forward, dashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rigidbody.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rigidbody.drag + 1)) / -Time.deltaTime)));
             rigidbody.AddForce(dashVelocity, ForceMode.VelocityChange);
         }
         */
+        //Debug.Log(crouching);
+
+        //if (isGrounded && Input.GetKeyDown(GameManager.GM.crouch))
+        //{
+        //    if (crouching)
+        //    {
+        //        capsule.height = capsuleHeight;
+        //        capsule.center = capsuleCenter;
+        //        crouching = false;
+        //    }
+        //    else
+        //    {
+        //        capsule.height = capsule.height / 2f;
+        //        capsule.center = capsule.center / 2f;
+        //        crouching = true;
+        //    }
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.X)) anim.SetTrigger("BasicAttack");
     }
 
 
@@ -61,6 +78,14 @@ public class PlayerMovement: MonoBehaviour {
         if (move.magnitude > 1f) move.Normalize();
         CheckGroundStatus();
         move = Vector3.ProjectOnPlane(move, groundNormal);
+        if(move == Vector3.zero)
+        {
+            walking = false;
+        }
+        else
+        {
+            walking = true;
+        }
         if (move != Vector3.zero)
         {
             // makes the character look in the direction it is walking
@@ -77,18 +102,30 @@ public class PlayerMovement: MonoBehaviour {
         {
             AirMovement();
         }
-
+        //Debug.Log(dash);
+        //Debug.Log(capsuleHeight);
+        //Debug.Log(capsule.height);
         ScaleCapsuleForCrouching(crouch);
-        PreventStandingInLowHeadroom();
+        //ScaleCapsuleForDashing(dash);
+        //PreventStandingInLowHeadroom();
+        UpdateAnimator(move, jump);
+    }
+
+    void UpdateAnimator(Vector3 move, bool jump)
+    {
+        anim.SetBool("Walking", walking);
+        anim.SetBool("Grounded", isGrounded);
     }
 
     void GroundMovement(bool jump, bool dash, bool crouch)
     {
-        if (jump && !crouch && !dash)
+        if (jump && !crouching)
         {
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpPower, rigidbody.velocity.z);
             isGrounded = false;
-            //animator.applyRootMotion = false;
+
+            //anim
+            
             groundCheckDistance = 1.1f;
         }
     }
@@ -98,34 +135,32 @@ public class PlayerMovement: MonoBehaviour {
         Vector3 extraGravityForce = (Physics.gravity * gravityMultiplier) - Physics.gravity;
         rigidbody.AddForce(extraGravityForce);
 
-        groundCheckDistance = rigidbody.velocity.y < 0 ? origGroundCheckDistance : 0.01f;
+        groundCheckDistance = rigidbody.velocity.y < 0 ? origGroundCheckDistance : 1.1f;
     }
 
     void ScaleCapsuleForCrouching(bool crouch)
     {
         if(isGrounded && crouch)
         {
-            if (crouching || dashing)
+            //if (dashing)
+            //{
+            //    return;
+            //}
+            if (crouching)
             {
-                return;
+                capsule.height = capsuleHeight;
+                capsule.center = capsuleCenter;
+                crouching = false;
             }
-            capsule.height = capsule.height / 2f;
-            capsule.center = capsule.center / 2f;
-            crouching = true;
-        }
-        else
-        {
-            Ray crouchRay = new Ray(rigidbody.position + Vector3.up * capsule.radius * half, Vector3.up);
-            float crouchRayLength = capsuleHeight - capsule.radius * half;
-            if(Physics.SphereCast(crouchRay, capsule.radius * half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+            else
             {
+                capsule.height = capsule.height / 2f;
+                capsule.center = capsule.center / 2f;
                 crouching = true;
-                return;
             }
-            capsule.height = capsuleHeight;
-            capsule.center = capsuleCenter;
-            crouching = false;
+            
         }
+        
     }
 
     void ScaleCapsuleForDashing(bool dash)
@@ -140,19 +175,6 @@ public class PlayerMovement: MonoBehaviour {
             capsule.center = capsule.center / 2f;
             dashing = true;
         }
-        else
-        {
-            Ray dashRay = new Ray(rigidbody.position + Vector3.up * capsule.radius * half, Vector3.up);
-            float dashRayLength = capsuleHeight - capsule.radius * half;
-            if (Physics.SphereCast(dashRay, capsule.radius * half, dashRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
-            {
-                dashing = true;
-                return;
-            }
-            capsule.height = capsuleHeight;
-            capsule.center = capsuleCenter;
-            dashing = false;
-        }
     }
 
     void PreventStandingInLowHeadroom()
@@ -160,7 +182,7 @@ public class PlayerMovement: MonoBehaviour {
         if (!crouching)
         {
             Ray crouchRay = new Ray(rigidbody.position + Vector3.up * capsule.radius * half, Vector3.up);
-            float crouchRayLength = capsuleHeight - capsule.radius * half;
+            float crouchRayLength = capsuleHeight * half - capsule.radius * half;
             if(Physics.SphereCast(crouchRay, capsule.radius * half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
                 crouching = true;
@@ -177,19 +199,38 @@ public class PlayerMovement: MonoBehaviour {
 #endif
         // 0.1f is a small offset to start the ray from inside the character
         // it is also good to note that the transform position in the sample assets is at the base of the character
-        if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, groundCheckDistance))
+        if (crouching)
         {
-            groundNormal = hitInfo.normal;
-            isGrounded = true;
-            //animator.applyRootMotion = true;
+            if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, groundCheckDistance * half))
+            {
+                groundNormal = hitInfo.normal;
+                isGrounded = true;
+                
+            }
+            else
+            {
+
+                isGrounded = false;
+                groundNormal = Vector3.up;
+                
+            }
         }
-        else
-        {
-            
-            isGrounded = false;
-            groundNormal = Vector3.up;
-            //animator.applyRootMotion = false;
-        }
+
+            if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, groundCheckDistance))
+            {
+                groundNormal = hitInfo.normal;
+                isGrounded = true;
+                
+            }
+            else
+            {
+
+                isGrounded = false;
+                groundNormal = Vector3.up;
+               
+            }
+        
+        
         
     }
 }

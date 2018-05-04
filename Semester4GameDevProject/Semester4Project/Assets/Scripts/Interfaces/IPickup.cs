@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Interfaces
 {
-    class IPickup
+    public interface IPickup
     {
+        void PickUp(IInventory inventory);
+        void PutDown(IInventory inventory);
     }
 }

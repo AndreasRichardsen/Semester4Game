@@ -5,7 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Interfaces
 {
-    class IInventory
+    public interface IInventory
     {
+        void Add(Item item);
+        void Remove(Item item);
     }
 }

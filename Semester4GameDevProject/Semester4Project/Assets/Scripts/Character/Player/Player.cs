@@ -7,7 +7,11 @@ using UnityEngine;
 //[RequireComponent(typeof(CapsuleCollider))]
 //[RequireComponent(typeof(Animator))] 
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
+    //the games currency
+    public int gold;
+    public int bloodEssence;
 
     Rigidbody rigidbody;
     Transform cam;
@@ -19,8 +23,15 @@ public class Player : MonoBehaviour {
     bool dash;
     bool crouch;
     public float jumpVelocity;
+    public Inventory inventory;
+    public ProximityInventory proximityInventory;
  
-    
+    public Player()
+    {
+        inventory = new Inventory();
+        proximityInventory = new ProximityInventory();
+    }
+
     void Start()
     {
         if (Camera.main != null)
@@ -39,6 +50,8 @@ public class Player : MonoBehaviour {
 
     void Update()
     {
+        //Debug.Log(proximityInventory.Items.Count);
+
         inputs.x = Input.GetAxis("Horizontal");
         inputs.z = Input.GetAxis("Vertical");
         if (inputs != Vector3.zero)
