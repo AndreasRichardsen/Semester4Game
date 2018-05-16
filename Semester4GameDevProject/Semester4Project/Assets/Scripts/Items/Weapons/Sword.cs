@@ -6,27 +6,30 @@ using UnityEngine;
 public class Sword : MonoBehaviour, IWeapon
 {
     public List<BaseStat> Stats { get; set; }
+    public CharacterStats CharacterStats { get; set; }
+    public int CurrentDamage { get; set; }
 
-    private Animator animator;
     public GameObject player;
 
+
+    private Animator animator;
     void Start()
     {
         player = GameObject.Find("Player");
         animator = player.GetComponent<Animator>();
     }
 
-    public void PerformAttack()
+    public void PerformAttack(int damage)
     {
+        CurrentDamage = damage;
         animator.SetTrigger("BasicAttack");
-        
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<IHealth>().TakeDamage(Stats[0].GetCalculatedStatValue());
+            other.GetComponent<IHealth>().TakeDamage(CurrentDamage);
         }
     }
 }

@@ -1,0 +1,55 @@
+﻿[
+  {
+    "objectSlug": "GoblinAxe",
+    "itemName": "Goblin Axe",
+    "description": "An axe made from disgusting goblins",
+    "itemType": "Weapon",
+    "actionName": "Equip",
+    "itemModifier": false,
+    "stats": [
+      {
+        "statType": "AttackDamage",
+        "baseValue": 10,
+        "statName": "Atk Dmg"
+      },
+      {
+        "statType": "Armour",
+        "baseValue": 4,
+        "statName": "Armour"
+      },
+      {
+        "statType": "Crit",
+        "baseValue": 50,
+        "statName": "Crit"
+      }
+    ]
+  },
+  {
+    "objectSlug": "SwordSmall",
+    "itemName": "Small Sword",
+    "description": "A puny smal weak sword",
+    "itemType": "Weapon",
+    "actionName": "Equip",
+    "itemModifier": false,
+    "stats": [
+      {
+        "statType": "AttackDamage",
+        "baseValue": 5,
+        "statName": "Atk Dmg"
+      },
+      {
+        "statType": "Crit",
+        "baseValue": 30,
+        "statName": "Crit"
+      }
+    ]
+  },
+  {
+    "objectSlug": "PotionLog",
+    "itemName": "Log Potion",
+    "description": "A potion that log something to the console.",
+    "itemType": "Consumable",
+    "actionName": "Drink",
+    "itemModifier": false
+  }
+]

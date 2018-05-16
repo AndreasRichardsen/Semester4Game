@@ -7,46 +7,72 @@ public class PlayerWeaponController : MonoBehaviour
     public GameObject playerHand;
     public GameObject EquippedWeapon { get; set; }
 
-    private string playerHandPath = "Player/GOBLIN/rig/GOB_one_Sword";
+    string playerHandPath = "Player/GOBLIN/rig/GOB_one_Sword";
 
     IWeapon equippedWeapon;
     CharacterStats characterStats;
+    Item currentlyEquippedItem;
 
     void Start()
     {
         if(playerHand == null) playerHand = GameObject.Find(playerHandPath);
-        characterStats = GetComponent<CharacterStats>();
+        characterStats = GetComponent<Player>().characterStats;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            PerformWeaponAttack();
+        }
     }
 
     public void EquipWeapon(Item itemToEquip)
     {
         if (EquippedWeapon != null)
         {
-            characterStats.RemoveStatBonus(EquippedWeapon.GetComponent<IWeapon>().Stats);
-            Destroy(playerHand.transform.GetChild(0).gameObject);
+            UnEquipWeapon();
         }
-        else
-        {
-            EquippedWeapon = (GameObject)Instantiate(Resources.Load("Items/Weapons/" + itemToEquip.ObjectSlug), playerHand.transform.position, playerHand.transform.rotation);
-            equippedWeapon = EquippedWeapon.GetComponent<IWeapon>();
-            EquippedWeapon.GetComponent<IWeapon>().Stats = itemToEquip.Stats;
-            EquippedWeapon.transform.SetParent(playerHand.transform);
-            characterStats.AddStatBonus(itemToEquip.Stats);
-            
-        }
-        Debug.Log(equippedWeapon.Stats[0]);
+
+        EquippedWeapon = (GameObject)Instantiate(Resources.Load<GameObject>("Items/Weapons/" + itemToEquip.ObjectSlug), playerHand.transform.position, playerHand.transform.rotation);
+        equippedWeapon = EquippedWeapon.GetComponent<IWeapon>();
+        EquippedWeapon.transform.SetParent(playerHand.transform);
+        equippedWeapon.Stats = itemToEquip.Stats;
+        currentlyEquippedItem = itemToEquip;
+        characterStats.AddStatBonus(itemToEquip.Stats);
+        UIEventHandler.ItemEquipped(itemToEquip);
+        UIEventHandler.StatsChanged();
     }
 
-    void Update()
+    public void UnEquipWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            PerformWeaponAttack();
-        }
+        InventoryController.Instance.GiveItem(currentlyEquippedItem.ObjectSlug);
+        characterStats.RemoveStatBonus(equippedWeapon.Stats);
+        Destroy(EquippedWeapon.transform.gameObject);
+        UIEventHandler.StatsChanged();
     }
+
+    
 
     public void PerformWeaponAttack()
     {
-        EquippedWeapon.GetComponent<IWeapon>().PerformAttack();
+        EquippedWeapon.GetComponent<IWeapon>().PerformAttack(CalculateDamage());
+    }
+
+    private int CalculateDamage()
+    {
+        int damageToDeal = (characterStats.GetStat(BaseStat.BaseStatType.AttackDamage).GetCalculatedStatValue());
+        Debug.Log(damageToDeal);
+        return damageToDeal;
+    }
+
+    int CalculateCrit(int damage)
+    {
+        if (Random.value <= (float)characterStats.GetStat(BaseStat.BaseStatType.Crit).GetCalculatedStatValue() / 100)
+        {
+            int critDamage = (int)(damage * Random.Range(.1f, 1f));
+            return critDamage;
+        }
+        return 0;
     }
 }

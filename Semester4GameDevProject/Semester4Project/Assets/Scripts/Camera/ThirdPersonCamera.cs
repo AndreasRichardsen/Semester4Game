@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThirdPersonCamera : MonoBehaviour {
-
+public class ThirdPersonCamera : MonoBehaviour
+{
     public Transform lookAt;
     public Transform camTransform;
 
@@ -15,7 +15,6 @@ public class ThirdPersonCamera : MonoBehaviour {
 
     void Start()
     {
-        Debug.Log(lookAt);
         if (lookAt == null) lookAt = GameObject.Find("Player").transform;
         camTransform = transform;
         cam = Camera.main;

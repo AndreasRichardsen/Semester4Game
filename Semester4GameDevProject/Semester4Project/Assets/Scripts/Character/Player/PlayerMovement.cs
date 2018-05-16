@@ -8,7 +8,7 @@ public class PlayerMovement: MonoBehaviour {
     public float speed = 5f;
     public float jumpHeight = 2f;
     public float jumpPower = 12f;
-    public float groundCheckDistance = 1f;
+    public float groundCheckDistance = 1.3f;
     public float dashDistance = 5f;
     public LayerMask ground;
 
@@ -126,7 +126,7 @@ public class PlayerMovement: MonoBehaviour {
 
             //anim
             
-            groundCheckDistance = 1.1f;
+            groundCheckDistance = 1.3f;
         }
     }
 
@@ -135,7 +135,7 @@ public class PlayerMovement: MonoBehaviour {
         Vector3 extraGravityForce = (Physics.gravity * gravityMultiplier) - Physics.gravity;
         rigidbody.AddForce(extraGravityForce);
 
-        groundCheckDistance = rigidbody.velocity.y < 0 ? origGroundCheckDistance : 1.1f;
+        groundCheckDistance = rigidbody.velocity.y < 0 ? origGroundCheckDistance : 1.3f;
     }
 
     void ScaleCapsuleForCrouching(bool crouch)

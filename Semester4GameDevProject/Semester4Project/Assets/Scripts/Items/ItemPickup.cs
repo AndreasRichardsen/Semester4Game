@@ -2,17 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ItemPickup : MonoBehaviour, IPickup
+public class ItemPickup : MonoBehaviour
 {
+    public Item ItemDrop { get; set; }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(GameManager.GM.interact))
+        {
+            InventoryController.Instance.GiveItem(ItemDrop);
+            Destroy(gameObject);
+        }
+    }
+
+
+
+
+    /*
     public void PickUp(IInventory inventory)
     {
-        //inventory.Add(Item.);
+        inventory.Add(gameObject.GetComponent<Item>());
     }
 
     public void PutDown(IInventory inventory)
     {
-        //inventory.Remove(this);
+        inventory.Remove(gameObject.GetComponent<Item>());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,5 +48,6 @@ public class ItemPickup : MonoBehaviour, IPickup
             PutDown(currentPlayer.proximityInventory);
         }
     }
+    */
 
 }

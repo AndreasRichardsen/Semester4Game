@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseMenuUI : MonoBehaviour {
-
+public class PauseMenuUI : MonoBehaviour
+{
     public static bool gameIsPaused = false;
 
     public GameObject pauseMenuUI;
@@ -14,7 +14,7 @@ public class PauseMenuUI : MonoBehaviour {
 
     void Start()
     {
-        if(pauseMenuUI == null) pauseMenuUI = GameObject.Find("CanvasPause/PauseMenu"); 
+        if (pauseMenuUI == null) pauseMenuUI = GameObject.Find("CanvasPause/PauseMenu"); 
         if(optionsMenuUI == null) optionsMenuUI = GameObject.Find("CanvasPause/OptionsMenu");
         if(inputsMenuUI == null) inputsMenuUI = GameObject.Find("CanvasPause/InputsMenu");
         if(thirdPersonCamera == null) thirdPersonCamera = GameObject.Find("MainCamera").GetComponent<ThirdPersonCamera>();
