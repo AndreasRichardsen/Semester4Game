@@ -4,11 +4,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+//ToDo: add the EndInteraction() method from NPCInteractables to the end of the dialogue!
 public class DialogueSystem : MonoBehaviour
 {
     public static DialogueSystem Instance { get; set; }
 
     public GameObject dialoguePanel;
+    public NPC NPCInteract;
+
 
     public string npcName;
     public List<string> dialogueLines = new List<string>();
@@ -18,7 +21,7 @@ public class DialogueSystem : MonoBehaviour
     Text nameText;
     int dialogueIndex;
 
-    void Awake ()
+    void Start()
     {
         continueButton = dialoguePanel.transform.Find("OkButton").GetComponent<Button>();
         dialogueText = dialoguePanel.transform.Find("Text").GetComponent<Text>();
@@ -36,6 +39,8 @@ public class DialogueSystem : MonoBehaviour
         {
             Instance = this;
         }
+
+        
 	}
 
     public void AddNewDialogue(string[] lines, string npcName)
@@ -64,7 +69,6 @@ public class DialogueSystem : MonoBehaviour
         }
         else
         {
-
             dialoguePanel.SetActive(false);
         }
     }

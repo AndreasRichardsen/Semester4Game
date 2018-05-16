@@ -8,7 +8,8 @@ public class PotionLog : MonoBehaviour, IConsumable
 {
     public void Consume()
     {
-        Debug.Log("you took a swig of the porion!");
+        Debug.Log("you took a swig of the potion!");
+        Destroy(gameObject);
     }
 
     public void Consume(CharacterStats stat)

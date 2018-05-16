@@ -7,17 +7,21 @@ public class Spawner : MonoBehaviour {
     public GameObject monster;
     public bool respawn;
     public float spawnDelay;
+    public int maxAmountOfMonstersAllowed;
 
+    int monstersSpawned;
     float currentTime;
     bool spawning;
 
-    private void Start()
+    void Start()
     {
+        spawning = true;
+        monstersSpawned = 0;
         Spawn();
         currentTime = spawnDelay;
     }
 
-    private void Update()
+    void Update()
     {
         if (spawning)
         {
@@ -33,12 +37,22 @@ public class Spawner : MonoBehaviour {
     {
         spawning = true;
         currentTime = spawnDelay;
+        monstersSpawned--;
     }
 
     void Spawn()
     {
         IEnemy instance = Instantiate(monster, transform.position, Quaternion.identity).GetComponent<IEnemy>();
-
-        spawning = false;
+        instance.Spawner = this;
+        monstersSpawned++;
+        if(monstersSpawned >= maxAmountOfMonstersAllowed)
+        {
+            spawning = false;
+        }
+        else
+        {
+            currentTime = spawnDelay;
+        }
+        
     }
 }

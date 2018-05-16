@@ -8,55 +8,39 @@ public class PlayerHealth : MonoBehaviour, IHealth {
 
     public int maxHealth = 100;
     public int currentHealth;
-    public Slider healthSlider;
-    public Text healthText;
+    public Animator animator;
     //public AudioClip deathClip;
 
-    PlayerMovement playerMovement;
+    Player player;
 
-    bool isDead;
-    bool damaged;
+    public bool isDead;
 
     void Start()
     {
-        if(healthSlider == null) healthSlider = GameObject.Find("CanvasPlayerInterface/DefaultUI/HitPointsBar").GetComponent<Slider>();
-        if (healthText == null) healthText = GameObject.Find("CanvasPlayerInterface/DefaultUI/HitPointUI").GetComponent<Text>();
-        playerMovement = GetComponent<PlayerMovement>();
+        animator = GetComponent<Animator>();
+        player = GetComponent<Player>();
         currentHealth = maxHealth;
-        healthSlider.value = currentHealth;
-        healthText.text = ReturnHealthText();
+        
     }
 
 
-    void Update()
-    {
-        if (damaged)
-        {
-            Debug.Log("you are hit. remaining health: " + currentHealth);
-        }
-        damaged = false;
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("damaged");
-            TakeDamage(10);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log("healed");
-            Heal(10);
-        }
-    }
 
     public void TakeDamage(int amount)
     {
-        damaged = true;
-        currentHealth -= amount;
-        if(currentHealth <= 0 && !isDead)
+        if (!isDead)
         {
-            Die();
+            amount -= player.characterStats.GetStat(BaseStat.BaseStatType.Armour).GetCalculatedStatValue();
+            if (amount >= 0)
+            {
+                currentHealth -= amount;
+                if (currentHealth <= 0 && !isDead)
+                {
+                    Die();
+                }
+                HealthChanged();
+            }
+                
         }
-        healthSlider.value = currentHealth;
-        healthText.text = ReturnHealthText();
     }
 
     public void Heal(int amount)
@@ -67,31 +51,34 @@ public class PlayerHealth : MonoBehaviour, IHealth {
         {
             currentHealth = maxHealth;
         }
-        healthSlider.value = currentHealth;
-        healthText.text = ReturnHealthText();
+        HealthChanged();
     }
 
     public void Die()
     {
+        animator.SetTrigger("Die");
         isDead = true;
         currentHealth = 0;
-        playerMovement.enabled = false;
+        player.enabled = false;
+        HealthChanged();
     }
 
     public void Revive(int amount)
     {
+        animator.SetTrigger("Revive");
         isDead = false;
         currentHealth = amount;
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
         }
-        healthSlider.value = currentHealth;
-        healthText.text = ReturnHealthText();
+        player.enabled = true;
+        HealthChanged();
     }
 
-    private string ReturnHealthText()
+    void HealthChanged()
     {
-        return currentHealth.ToString() + "/" + maxHealth.ToString(); 
+        UIEventHandler.HealthChanged(this.currentHealth, this.maxHealth);
     }
+
 }

@@ -25,7 +25,9 @@ public class Player : MonoBehaviour
     public float jumpVelocity;
     public Inventory inventory;
     public ProximityInventory proximityInventory;
- 
+    public CharacterStats characterStats;
+    public PlayerLevel PlayerLevel { get; set; }
+
     public Player()
     {
         inventory = new Inventory();
@@ -34,6 +36,12 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        PlayerLevel = GetComponent<PlayerLevel>();
+        charMovement = GetComponent<PlayerMovement>();
+        rigidbody = GetComponent<Rigidbody>();
+
+        characterStats = new CharacterStats(5, 10, 10, 0);
+
         if (Camera.main != null)
         {
             cam = Camera.main.transform;
@@ -42,8 +50,6 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("Wardning: No main camera found.");
         }
-        charMovement = GetComponent<PlayerMovement>();
-        rigidbody = GetComponent<Rigidbody>();
 
         rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
     }

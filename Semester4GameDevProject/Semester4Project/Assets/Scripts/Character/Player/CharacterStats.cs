@@ -2,21 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+public class CharacterStats 
 {
     public List<BaseStat> stats = new List<BaseStat>();
 
-    void Start()
+    public CharacterStats(int attackDmg, int armour, int attackSpeed, int crit)
     {
-        stats.Add(new BaseStat(4, "Power", "Your power level."));
-        stats[0].AddStatBonus(new StatBonus(5));
+        stats = new List<BaseStat>() {
+            new BaseStat(BaseStat.BaseStatType.AttackDamage, attackDmg, "Atk Dmg"),
+            new BaseStat(BaseStat.BaseStatType.Armour, armour, "Armour"),
+            new BaseStat(BaseStat.BaseStatType.AttackSpeed, attackSpeed, "Atk Spd"),
+            new BaseStat(BaseStat.BaseStatType.Crit, crit, "Crit")
+        };
+    }
+
+    public BaseStat GetStat(BaseStat.BaseStatType stat)
+    {
+        return this.stats.Find(x => x.StatType == stat);
     }
 
     public void AddStatBonus(List<BaseStat> statBonuses)
     {
         foreach(BaseStat statBonus in statBonuses)
         {
-            stats.Find(x => x.StatName == statBonus.StatName).AddStatBonus(new StatBonus(statBonus.BaseValue));
+            GetStat(statBonus.StatType).AddStatBonus(new StatBonus(statBonus.BaseValue));
         }
     }
 
@@ -24,7 +33,7 @@ public class CharacterStats : MonoBehaviour
     {
         foreach (BaseStat statBonus in statBonuses)
         {
-            stats.Find(x => x.StatName == statBonus.StatName).RemoveStatBonus(new StatBonus(statBonus.BaseValue));
+            GetStat(statBonus.StatType).RemoveStatBonus(new StatBonus(statBonus.BaseValue));
         }
     }
 }
