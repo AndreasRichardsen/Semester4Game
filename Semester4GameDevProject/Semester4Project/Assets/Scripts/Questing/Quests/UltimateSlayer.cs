@@ -6,12 +6,13 @@ public class UltimateSlayer : Quest
 {
     void Start()
     {
-        QuestName = "Ultimate Slayer";
-        Description = "KILL KILL KILL!!!";
-        ItemReward = ItemDatabase.Instance.GetItem("GoblinAxe");
+        QuestName = "" +
+            "Ghost Slayer";
+        Description = "Kill 5 ghosts";
+        ItemReward = ItemDatabase.Instance.GetItem("BottleOfUnicornBlood");
         ExperienceReward = 100;
 
-        Goals.Add(new KillGoal(this, 0, "Kill 5 slimes", false, 0, 5));
+        Goals.Add(new KillGoal(this, 1, Description, false, 0, 5));
 
         Goals.ForEach(g => g.Init());
     }

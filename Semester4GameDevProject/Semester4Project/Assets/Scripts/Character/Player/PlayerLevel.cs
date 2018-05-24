@@ -8,7 +8,7 @@ public class PlayerLevel : MonoBehaviour
     public int CurrentExperience { get; set; }
     public int RequiredExperience { get { return Level * 25; } }
 
-    void Start()
+    void Start() 
     {
         CombatEvents.OnEnemyDeath += EnemyToExperience;
         Level = 1;

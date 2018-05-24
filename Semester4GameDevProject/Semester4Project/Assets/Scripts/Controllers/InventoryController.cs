@@ -26,9 +26,8 @@ public class InventoryController : MonoBehaviour
         if (consumableController == null) consumableController = GetComponent<ConsumableController>();
 
         GiveItem("GoblinAxe");
-        GiveItem("SwordSmall");
-        GiveItem("PotionLog");
-        Debug.Log(playerItems.Count);
+        GiveItem("BottleOfUnicornBlood");
+        GiveItem("PotionHealthSmall");
     }
 
     public void GiveItem(string itemSlug)
@@ -37,12 +36,14 @@ public class InventoryController : MonoBehaviour
         Item item = ItemDatabase.Instance.GetItem(itemSlug);
         playerItems.Add(item);
         UIEventHandler.ItemAddedToInventory(item);
+        UIEventHandler.ItemCollected(item);
     }
 
     public void GiveItem(Item item)
     {
         playerItems.Add(item);
         UIEventHandler.ItemAddedToInventory(item);
+        UIEventHandler.ItemCollected(item);
     }
 
     public void SetItemDetails(Item item, Button selectedButton)

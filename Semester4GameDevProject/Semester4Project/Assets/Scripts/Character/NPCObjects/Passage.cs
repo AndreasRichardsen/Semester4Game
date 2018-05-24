@@ -10,7 +10,8 @@ public class Passage : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<Player>();
-        PassageLocation = new Vector3(passage.transform.position.x, passage.transform.position.y + 1, passage.transform.position.z + 3);
+
+        PassageLocation = new Vector3(passage.GetComponentInChildren<Transform>().GetChild(0).transform.position.x, passage.GetComponentInChildren<Transform>().GetChild(0).transform.position.y, passage.GetComponentInChildren<Transform>().GetChild(0).transform.position.z);
     }
 
     void OnTriggerEnter(Collider other)

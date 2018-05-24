@@ -25,8 +25,7 @@ public class QuestGiver : NPC
         }
         else
         {
-            PrepareStartInteraction();
-            DialogueSystem.Instance.AddNewDialogue(new string[] { "Thanks for the help" }, name);
+            base.StartInteraction();
         }
     }
 
@@ -41,6 +40,23 @@ public class QuestGiver : NPC
         if (Quest.Completed)
         {
             Quest.GiveReward();
+            foreach(Goal g in Quest.Goals)
+            {
+                if (g.GetType() == typeof(CollectGoal))
+                {
+                    foreach (CollectGoal goal in Quest.Goals)
+                    {
+                        for (int i = 0; i < goal.RequiredAmount; i++)
+                        {
+                            Item item = ItemDatabase.Instance.GetItem(goal.ItemSlug);
+                            InventoryController.Instance.playerItems.Remove(item);
+                            UIEventHandler.ItemDeletedFromInventory(item);
+                        }
+                    }
+                    break;
+                }
+            } 
+
             Helped = true;
             AssignedQuest = false;
             DialogueSystem.Instance.AddNewDialogue(new string[] { "Thanks for the help" }, name);

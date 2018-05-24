@@ -56,13 +56,15 @@ public class PlayerWeaponController : MonoBehaviour
 
     public void PerformWeaponAttack()
     {
-        EquippedWeapon.GetComponent<IWeapon>().PerformAttack(CalculateDamage());
+        if(currentlyEquippedItem != null)
+        {
+            EquippedWeapon.GetComponent<IWeapon>().PerformAttack(CalculateDamage());    
+        }
     }
 
     private int CalculateDamage()
     {
         int damageToDeal = (characterStats.GetStat(BaseStat.BaseStatType.AttackDamage).GetCalculatedStatValue());
-        Debug.Log(damageToDeal);
         return damageToDeal;
     }
 

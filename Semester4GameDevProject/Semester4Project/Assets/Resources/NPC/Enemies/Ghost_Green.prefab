@@ -81,7 +81,7 @@ GameObject:
   - component: {fileID: 4000012843571490}
   - component: {fileID: 95000013357091332}
   - component: {fileID: 65343381644257854}
-  - component: {fileID: 114786976855830242}
+  - component: {fileID: 114457301841813310}
   - component: {fileID: 195271908646276856}
   m_Layer: 0
   m_Name: Ghost_Green
@@ -392,7 +392,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114786976855830242
+--- !u!114 &114457301841813310
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -400,9 +400,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010538092382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4943b965aa9ffb143ba8d632afdfa0be, type: 3}
+  m_Script: {fileID: 11500000, guid: d487bd9cd7c387543a025ad50bfb5cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navAgent: {fileID: 0}
   animator: {fileID: 0}
   itemPickup: {fileID: 114359926810463720, guid: 57b49887629cc2b4dbd5b2b50028937e,
     type: 2}
@@ -410,7 +411,7 @@ MonoBehaviour:
   aggroLayerMask:
     serializedVersion: 2
     m_Bits: 8192
-  maxHealth: 10
+  maxHealth: 100
   currentHealth: 0
 --- !u!137 &137000013188959522
 SkinnedMeshRenderer:

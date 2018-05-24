@@ -17,7 +17,7 @@ public class Goal
 
     public void Evaluate()
     {
-        if(CurrentAmount >= RequiredAmount)
+        if (CurrentAmount >= RequiredAmount)
         {
             Complete();
         }
@@ -25,7 +25,7 @@ public class Goal
 
     public void Complete()
     {
-        this.Quest.CheckGoals();
         Completed = true;
+        this.Quest.CheckGoals();
     }
 }

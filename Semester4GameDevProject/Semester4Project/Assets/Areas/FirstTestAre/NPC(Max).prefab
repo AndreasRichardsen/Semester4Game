@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 65911482739726704}
   - component: {fileID: 23798576623956426}
   - component: {fileID: 65656323470021610}
-  - component: {fileID: 114223197323302760}
+  - component: {fileID: 114147532985934662}
+  - component: {fileID: 114251533630747434}
   m_Layer: 0
   m_Name: NPC(Max)
   m_TagString: Untagged
@@ -253,7 +254,40 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114223197323302760
+--- !u!114 &114147532985934662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297536679850476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a4f43821002d547af7178a224e5789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcName: Max
+  dialogue1:
+  - Hi.
+  - Sorry for my brother there.
+  - He started to become frustrated after the first millenia you see.
+  - He started to become frustrated after the first millenia you see.
+  - I have a favour to ask of you.
+  - There is a rare fruit called "Death's Fruit", can you find it and bring it to
+    me.
+  - It is a fruit from Death himself that can kill anything.
+  - I wan't to give it to my brother here.
+  dialogue2:
+  - Thanks for bringing me the fruit.
+  - My brother will love to finally have a chance at dying.
+  onlyPlayFirstDialogue: 0
+  playSecondDialogue: 0
+  canvasPause: {fileID: 0}
+  dialogueUI: {fileID: 0}
+  thirdPersonCamera: {fileID: 0}
+  player: {fileID: 0}
+  quests: {fileID: 0}
+  questType: FindObjectForMax
+--- !u!114 &114251533630747434
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -265,8 +299,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: Max
-  dialogue:
-  - Hi!
+  dialogue1:
+  - Hi.
+  - Sorry for my brother there.
+  - He started to become frustrated after the first millenia you see.
+  - When it was just the three of us.
+  - 'He still cant '
+  dialogue2: []
+  onlyPlayFirstDialogue: 1
+  playSecondDialogue: 0
   canvasPause: {fileID: 0}
   dialogueUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}

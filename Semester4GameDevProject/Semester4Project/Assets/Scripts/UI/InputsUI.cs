@@ -102,7 +102,6 @@ public class InputsUI : MonoBehaviour {
     {
         waitingForKey = true;
         yield return waitForKey();
-
         switch (keyName)
         {
             case "forward":

@@ -45,9 +45,122 @@
     ]
   },
   {
+    "objectSlug": "SwordNormal",
+    "itemName": "Sword",
+    "description": "A normal worn sword",
+    "itemType": "Weapon",
+    "actionName": "Equip",
+    "itemModifier": false,
+    "stats": [
+      {
+        "statType": "AttackDamage",
+        "baseValue": 10,
+        "statName": "Atk Dmg"
+      },
+      {
+        "statType": "Armour",
+        "baseValue": 5,
+        "statName": "Armour"
+      },
+      {
+        "statType": "Crit",
+        "baseValue": 30,
+        "statName": "Crit"
+      }
+    ]
+  },
+  {
+    "objectSlug": "SwordWide",
+    "itemName": "Wide Sword",
+    "description": "A Wide and strong sword",
+    "itemType": "Weapon",
+    "actionName": "Equip",
+    "itemModifier": false,
+    "stats": [
+      {
+        "statType": "AttackDamage",
+        "baseValue": 15,
+        "statName": "Atk Dmg"
+      },
+      {
+        "statType": "Armour",
+        "baseValue": 2,
+        "statName": "Armour"
+      },
+      {
+        "statType": "Crit",
+        "baseValue": 70,
+        "statName": "Crit"
+      }
+    ]
+  },
+  {
+    "objectSlug": "SwordWood",
+    "itemName": "Wooden Sword",
+    "description": "A wooden training sword",
+    "itemType": "Weapon",
+    "actionName": "Equip",
+    "itemModifier": false,
+    "stats": [
+      {
+        "statType": "AttackDamage",
+        "baseValue": 4,
+        "statName": "Atk Dmg"
+      }
+    ]
+  },
+  {
     "objectSlug": "PotionLog",
     "itemName": "Log Potion",
     "description": "A potion that log something to the console.",
+    "itemType": "Consumable",
+    "actionName": "Drink",
+    "itemModifier": false
+  },
+  {
+    "objectSlug": "PotionExperience",
+    "itemName": "Experience Potion",
+    "description": "A potion that Gives you experience.",
+    "itemType": "Consumable",
+    "actionName": "Drink",
+    "itemModifier": false
+  },
+  {
+    "objectSlug": "PotionHealthSmall",
+    "itemName": "Small Health Potion",
+    "description": "A potion that heals you a small amount.",
+    "itemType": "Consumable",
+    "actionName": "Drink",
+    "itemModifier": false
+  },
+  {
+    "objectSlug": "PotionHealthMedium",
+    "itemName": "Medium Health Potion",
+    "description": "A potion that heals you a medium amount.",
+    "itemType": "Consumable",
+    "actionName": "Drink",
+    "itemModifier": false
+  },
+  {
+    "objectSlug": "PotionHealthBig",
+    "itemName": "Big Health Potion",
+    "description": "A potion that heals you a Big amount.",
+    "itemType": "Consumable",
+    "actionName": "Drink",
+    "itemModifier": false
+  },
+  {
+    "objectSlug": "DeathsFruit",
+    "itemName": "Death's Fruit",
+    "description": "A rare fruit that was nurtured by Death himself. The myth says the being that consume Death's fruit will die and be brought before Death himself.",
+    "itemType": "Consumable",
+    "actionName": "Eat",
+    "itemModifier": false
+  },
+  {
+    "objectSlug": "BottleOfUnicornBlood",
+    "itemName": "Bottle of unicorn blood",
+    "description": "A bottle of unicorn blood. Myth says by drinking a unicorns blood when you are close to death, you will be ressurected to life again. But not as you once were.",
     "itemType": "Consumable",
     "actionName": "Drink",
     "itemModifier": false

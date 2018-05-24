@@ -604,9 +604,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcName: The original
-  dialogue:
-  - Hello friend.
-  - Welcome to the start of this world.
+  dialogue1:
+  - Hello there dear friend.
+  - I am known as the original.
+  - I am as old as the world you are currently residing in.
+  - I see you are wondering why you are her.
+  - How you ended up in this place.
+  - I am sorry to bring you this dismal information.
+  - But there are but one being that knows the reason for your departure from your
+    own world to this world.
+  - Who is this being?
+  - The being that knows in none other than the being as old as time.
+  - DEATH!
+  dialogue2:
+  - Hello there again.
+  - I have no more information that is usefull for you.
+  - I hope you can find your way back to were you need to be.
+  onlyPlayFirstDialogue: 0
+  playSecondDialogue: 0
   canvasPause: {fileID: 0}
   dialogueUI: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
