@@ -26,7 +26,6 @@ public class InventoryController : MonoBehaviour
         if (consumableController == null) consumableController = GetComponent<ConsumableController>();
 
         GiveItem("GoblinAxe");
-        GiveItem("BottleOfUnicornBlood");
         GiveItem("PotionHealthSmall");
     }
 

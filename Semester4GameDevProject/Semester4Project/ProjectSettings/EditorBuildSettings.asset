@@ -8,6 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartArea.unity
     guid: 8f41903574c668641a15119fd1507bfb
-  - enabled: 1
-    path: Assets/Scenes/FirstTestArea.unity
-    guid: a514060f0ae171b4394ec1470aa41a84
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000

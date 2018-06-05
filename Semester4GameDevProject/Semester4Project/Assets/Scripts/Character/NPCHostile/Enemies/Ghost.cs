@@ -10,7 +10,11 @@ public class Ghost : Enemy
         DropTable = new DropTable();
         DropTable.loot = new List<LootDrop>
         {
-            new LootDrop("DeathsFruit", 100)
+            new LootDrop("GoblinAxe", 5),
+            new LootDrop("SwordSmall", 10),
+            new LootDrop("SwordNormal", 5),
+            new LootDrop("PotionExperience", 20),
+            new LootDrop("PotionHealthBig", 50)
         };
         ID = 1;
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
